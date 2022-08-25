@@ -1,0 +1,159 @@
+INSERT INTO MATCHES_T VALUES('5','2009-1-9','11','333','121','124','124','6');
+
+CREATE TABLE TOURIST_PL(TP_ID INT(5)PRIMARY KEY,PNAME VARCHAR(25),STATE VARCHAR(25),HISTORY VARCHAR(25),KM INT(4));
+ DESC TOURIST_PL;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| TP_ID   | int         | NO   | PRI | NULL    |       |
+| PNAME   | varchar(25) | YES  |     | NULL    |       |
+| STATE   | varchar(25) | YES  |     | NULL    |       |
+| HISTORY | varchar(25) | YES  |     | NULL    |       |
+| KM      | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+create table TOURIST(TID INT(5)PRIMARY KEY,COUNTRY VARCHAR(20),AGE INT(4),TNAME VARCHAR(20));
+
+ DESC TOURIST;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| TID     | int         | NO   | PRI | NULL    |       |
+| COUNTRY | varchar(20) | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| TNAME   | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+CREATE TABLE VISITS(TP_ID INT(5),VDATE DATE,TID INT(5),FOREIGN KEY(TID)REFERENCES TOURIST(TID),FOREIGN KEY(TP_ID)REFERENCES TOURIST_PL(TP_ID));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> DESC VISITS;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| TP_ID | int  | YES  | MUL | NULL    |       |
+| VDATE | date | YES  |     | NULL    |       |
+| TID   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+CREATE TABLE EMAIL(TID INT(5),EMAIL VARCHAR(25),FOREIGN KEY(TID)REFERENCES TOURIST(TID));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> DESC EMAIL;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| TID   | int         | YES  | MUL | NULL    |       |
+| EMAIL | varchar(25) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+
+ INSERT INTO TOURIST_PL VALUES('12','OOTY','KARNATAKA','BEAUTY',130);
+ INSERT INTO TOURIST_PL VALUES('11','BAELUR','KARNATAKA','FALLS',132);
+ INSERT INTO TOURIST_PL VALUES('12','OM','GOA','BEACH',140);
+ INSERT INTO TOURIST_PL VALUES('14','MYSORE','KARNATAKA','CLEANCITY',300);
+ INSERT INTO TOURIST_PL VALUES('15','GA','GOA','BEACH',420);
+ INSERT INTO TOURIST_PL VALUES('16','PA,'GOA','CLEANCITY',440);
+
+
+ INSERT INTO TOURIST VALUES(1001,'INDIA',34,'ANU');
+ INSERT INTO TOURIST VALUES(1002,'RUSSIA',23,'ANU');
+ INSERT INTO TOURIST VALUES(1003,'USA',56,'SHANITHA');
+ INSERT INTO TOURIST VALUES(1004,'INDIA',27,'THANU');
+ INSERT INTO TOURIST VALUES(1005,'INDIA',38,'HAVI');
+ 
+ 
+ INSERT INTO VISITS VALUES(14,'2020-03-12',1001);
+INSERT INTO VISITS VALUES(14,'2021-02-11',1002);
+INSERT INTO VISITS VALUES(14,'2010-01-14',1003);
+INSERT INTO VISITS VALUES(11,'2000-09-20',1001);
+INSERT INTO VISITS VALUES(12,'2018-08-24',1005);
+INSERT INTO VISITS VALUES(13,'2019-05-25',1004);
+
+INSERT INTO EMAIL VALUES(1001,'SU@GMAIL.COM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO EMAIL VALUES(1002,'EDRTG@GMAIL.COM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO EMAIL VALUES(1003,'EFYHJ@GMAIL.COM');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMAIL VALUES(1004,'EXYZ@GMAIL.COM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO EMAIL VALUES(1005,'ABC@GMAIL.COM');
+Query OK, 1 row affected (0.00 sec)
+
+ SELECT * FROM  EMAIL;
++------+-----------------+
+| TID  | EMAIL           |
++------+-----------------+
+| 1001 | SU@GMAIL.COM    |
+| 1002 | EDRTG@GMAIL.COM |
+| 1003 | EFYHJ@GMAIL.COM |
+| 1004 | EXYZ@GMAIL.COM  |
+| 1005 | ABC@GMAIL.COM   |
++------+-----------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM  VISITS;
++-------+------------+------+
+| TP_ID | VDATE      | TID  |
++-------+------------+------+
+|    11 | 2020-03-12 | 1001 |
+|    14 | 2021-02-11 | 1002 |
+|    14 | 2010-01-14 | 1003 |
+|    11 | 2000-09-20 | 1001 |
+|    12 | 2018-08-24 | 1005 |
+|    13 | 2019-05-25 | 1004 |
++-------+------------+------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM  TOURIST;
++------+---------+------+----------+
+| TID  | COUNTRY | AGE  | TNAME    |
++------+---------+------+----------+
+| 1001 | INDIA   |   34 | ANU      |
+| 1002 | RUSSIA  |   23 | ANU      |
+| 1003 | USA     |   56 | SHANITHA |
+| 1004 | INDIA   |   27 | THANU    |
+| 1005 | INDIA   |   38 | HAVI     |
++------+---------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM  TOURIST_PL;
++-------+--------+-----------+-----------+------+
+| TP_ID | PNAME  | STATE     | HISTORY   | KM   |
++-------+--------+-----------+-----------+------+
+|    11 | OOTY   | KARNATAKA | BEAUTY    |  130 |
+|    12 | OOTY   | KARNATAKA | BEAUTY    |  130 |
+|    13 | OM     | GOA       | BEACH     |  140 |
+|    14 | MYSORE | KARNATAKA | CLEANCITY |  300 |
++-------+--------+-----------+-----------+------+
+4 rows in set (0.00 sec)
+
+
+
+ SELECT STATE,COUNT(TP_ID) FROM TOURIST_PL GROUP BY STATE ORDER BY COUNT(TP_ID)DESC LIMIT 1;
++-----------+--------------+
+| STATE     | COUNT(TP_ID) |
++-----------+--------------+
+| KARNATAKA |            3 |
++-----------+--------------+
+
+ SELECT STATE,COUNT(STATE) FROM TOURIST_PL GROUP BY STATE HAVING COUNT(*)= (SELECT COUNT(*) FROM TOURIST_PL GROUP BY STATE ORDER BY  COUNT(STATE) DESC LIMIT 1);
++-----------+--------------+
+| STATE     | COUNT(STATE) |
++-----------+--------------+
+| KARNATAKA |            3 |
+| GOA       |            3 |
++-----------+--------------+
+
+ SELECT * FROM TOURIST_PL WHERE TP_ID =(SELECT TP_ID FROM VISITS GROUP BY TP_ID ORDER BY COUNT(TP_ID)DESC LIMIT 1);
++-------+-------+-----------+---------+------+
+| TP_ID | PNAME | STATE     | HISTORY | KM   |
++-------+-------+-----------+---------+------+
+|    11 | OOTY  | KARNATAKA | BEAUTY  |  130 |
++-------+-------+-----------+---------+------+
+1 row in set (0.00 sec)
+
+
