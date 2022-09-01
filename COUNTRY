@@ -1,0 +1,45 @@
+CREATE TABLE CONSTITUENCY(CONST_ID INT(20)PRIMARY KEY,CON_NAME VARCHAR(25),CSSTATE VARCHAR(20),NO_OF_VOTERS INT(10));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> DESC CONSTITUENCY;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| CONST_ID     | int         | NO   | PRI | NULL    |       |
+| CON_NAME     | varchar(25) | YES  |     | NULL    |       |
+| CSSTATE      | varchar(20) | YES  |     | NULL    |       |
+| NO_OF_VOTERS | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> CREATE TABLE PARTY (PID INT(20)PRIMARY KEY,PNAME VARCHAR(20),PSYMBOL VARCHAR(10));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> DESC PARTY;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PID     | int         | NO   | PRI | NULL    |       |
+| PNAME   | varchar(20) | YES  |     | NULL    |       |
+| PSYMBOL | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> CREATE TABLE CANDIDATE(CAND_ID INT(20)PRIMARY KEY,PHONE_NO INT(10),AGE INT(3),STATE VARCHAR(20),NAME VARCHAR(20),PID INT REFERENCES PARTY(PID));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> DESC CANDIDATE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| CAND_ID  | int         | NO   | PRI | NULL    |       |
+| PHONE_NO | int         | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| STATE    | varchar(20) | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| PID      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
+
