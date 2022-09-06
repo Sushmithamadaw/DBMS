@@ -1,0 +1,200 @@
+INSERT INTO CANDIDATE VALUES(1001,721790129,23,'KARNATAKA','SHIV',111);
+INSERT INTO CANDIDATE VALUES(1002,43627183,33,'KERALA','AVANI',222);
+INSERT INTO CANDIDATE VALUES(1003,89790129,30,'KARNATAKA','HAVI',333);
+INSERT INTO CANDIDATE VALUES(1004,9840129,38,'GOA','NEHA',444);
+INSERT INTO CANDIDATE VALUES(1005,8070129,21,'KARNATAKA','VENU',555);
+
+SELECT * FROM CANDIDATE;
++---------+-----------+------+-----------+-------+------+
+| CAND_ID | PHONE_NO  | AGE  | STATE     | NAME  | PID  |
++---------+-----------+------+-----------+-------+------+
+|    1001 | 721790129 |   23 | KARNATAKA | SHIV  |  111 |
+|    1002 |  43627183 |   33 | KERALA    | AVANI |  222 |
+|    1003 |  89790129 |   30 | KARNATAKA | HAVI  |  333 |
+|    1004 |   9840129 |   38 | GOA       | NEHA  |  444 |
+|    1005 |   8070129 |   21 | KARNATAKA | VENU  |  555 |
++---------+-----------+------+-----------+-------+------+
+5 rows in set (0.01 sec)
+
+INSERT INTO CONSTITUENCY VALUES(1,'KEYYUR','KARNATAKA',20);
+INSERT INTO CONSTITUENCY VALUES(2,'KUMBRA','GOA',30);
+INSERT INTO CONSTITUENCY VALUES(3,'BELLARE','MADHYAPRADESH',10);
+INSERT INTO CONSTITUENCY VALUES(4,'THINGALADI','GOA',40);
+INSERT INTO CONSTITUENCY VALUES(5,'MADAVU','KARNATAKA',45);
+INSERT INTO CONSTITUENCY VALUES(6,'SAVANOOR','KARNATAKA',25);
+INSERT INTO CONSTITUENCY VALUES(7,'VITTAL','GOA',20);
+ SELECT * FROM CONSTITUENCY;
++----------+------------+---------------+--------------+
+| CONST_ID | CON_NAME   | CSSTATE       | NO_OF_VOTERS |
++----------+------------+---------------+--------------+
+|        1 | KEYYUR     | KARNATAKA     |           20 |
+|        2 | KUMBRA     | GOA           |           30 |
+|        3 | BELLARE    | MADHYAPRADESH |           10 |
+|        4 | THINGALADI | GOA           |           40 |
+|        5 | MADAVU     | KARNATAKA     |           45 |
++----------+------------+---------------+--------------+
+5 rows in set (0.00 sec)
+
+SELECT * FROM CONSTITUENCY;
++----------+------------+---------------+--------------+
+| CONST_ID | CON_NAME   | CSSTATE       | NO_OF_VOTERS |
++----------+------------+---------------+--------------+
+|        1 | KEYYUR     | KARNATAKA     |           20 |
+|        2 | KUMBRA     | GOA           |           30 |
+|        3 | BELLARE    | MADHYAPRADESH |           10 |
+|        4 | THINGALADI | GOA           |           40 |
+|        5 | MADAVU     | KARNATAKA     |           45 |
+|        6 | SAVANOOR   | KARNATAKA     |           25 |
+|        7 | VITTAL     | GOA           |           20 |
++----------+------------+---------------+--------------+
+7 rows in set (0.00 sec)
+
+
+INSERT INTO PARTY VALUES(111,'BJP','LOTUS');
+INSERT INTO PARTY VALUES(222,'CONGRESS','HAND');
+INSERT INTO PARTY VALUES(333,'COMMUNIST','TREE');
+INSERT INTO PARTY VALUES(444,'OTHER','CYCLE');
+ INSERT INTO PARTY VALUES(555,'JDS','COCONUT');
+ 
+  SELECT * FROM PARTY;
++-----+-----------+---------+
+| PID | PNAME     | PSYMBOL |
++-----+-----------+---------+
+| 111 | BJP       | LOTUS   |
+| 222 | CONGRESS  | HAND    |
+| 333 | COMMUNIST | TREE    |
+| 444 | OTHER     | CYCLE   |
+| 555 | JDS       | COCONUT |
++-----+-----------+---------+
+5 rows in set (0.00 sec)
+
+DROP TABLE VOTERS;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE VOTERS(VID INT(5)PRIMARY KEY,NAME VARCHAR(25),AGE INT(2),HOUSE_NO INT(5),CITY VARCHAR(25),STATE VARCHAR(10),PINCODE INT(5),CAND_ID INT(20),CONST_ID INT(20),FOREIGN KEY(CAND_ID)REFERENCES CANDIDATE(CAND_ID),FOREIGN KEY(CONST_ID)REFERENCES CONSTITUENCY(CONST_ID));
+Query OK, 0 rows affected, 6 warnings (0.03 sec)
+
+mysql> DESC VOTERS;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| VID      | int         | NO   | PRI | NULL    |       |
+| NAME     | varchar(25) | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| HOUSE_NO | int         | YES  |     | NULL    |       |
+| CITY     | varchar(25) | YES  |     | NULL    |       |
+| STATE    | varchar(10) | YES  |     | NULL    |       |
+| PINCODE  | int         | YES  |     | NULL    |       |
+| CAND_ID  | int         | YES  | MUL | NULL    |       |
+| CONST_ID | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+CREATE TABLE CONTEST(CAND_ID INT(20),CONST_ID INT(20),FOREIGN KEY(CAND_ID)REFERENCES CANDIDATE(CAND_ID),FOREIGN KEY(CONST_ID)REFERENCES CONSTITUENCY(CONST_ID));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> DESC CONTEST;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| CAND_ID  | int  | YES  | MUL | NULL    |       |
+| CONST_ID | int  | YES  | MUL | NULL    |       |
++----------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+INSERT INTO VOTERS VALUES(11,'SANU',23,010,'PUTTUR','KARNATAKA',1234,1001,1);
+INSERT INTO VOTERS VALUES(12,'RITHU',36,020,'KUMBRA','KARNATAKA',3456,1002,4);
+INSERT INTO VOTERS VALUES(13,'CHINNU',45,030,'BELLARE','GOA',1684,1004,1);
+INSERT INTO VOTERS VALUES(14,'DIMPU',32,040,'UPPALA','KERALA',6567,1003,2);
+INSERT INTO VOTERS VALUES(15,'YADU',28,050,',MADAVU','KERALA',9789,1003,5);
+SELECT * FROM VOTERS;
++-----+--------+------+----------+---------+-----------+---------+---------+----------+
+| VID | NAME   | AGE  | HOUSE_NO | CITY    | STATE     | PINCODE | CAND_ID | CONST_ID |
++-----+--------+------+----------+---------+-----------+---------+---------+----------+
+|  11 | SANU   |   23 |       10 | PUTTUR  | KARNATAKA |    1234 |    1001 |        1 |
+|  12 | RITHU  |   36 |       20 | KUMBRA  | KARNATAKA |    3456 |    1002 |        4 |
+|  13 | CHINNU |   45 |       30 | BELLARE | GOA       |    1684 |    1004 |        1 |
+|  14 | DIMPU  |   32 |       40 | UPPALA  | KERALA    |    6567 |    1003 |        2 |
+|  15 | YADU   |   28 |       50 | ,MADAVU | KERALA    |    9789 |    1003 |        5 |
++-----+--------+------+----------+---------+-----------+---------+---------+----------+
+5 rows in set (0.00 sec)
+
+
+INSERT INTO CONTEST VALUES(1001,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1003,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1003,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1002,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1002,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1004,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CONTEST VALUES(1005,2);
+Query OK, 1 row affected (0.01 sec)
+
+SELECT * FROM CONTEST;
++---------+----------+
+| CAND_ID | CONST_ID |
++---------+----------+
+|    1001 |        2 |
+|    1003 |        1 |
+|    1003 |        4 |
+|    1002 |        5 |
+|    1002 |        3 |
+|    1004 |        3 |
+|    1005 |        2 |
++---------+----------+
+7 rows in set (0.00 sec)
+
+
+I)SELECT * FROM CANDIDATE WHERE CAND_ID IN(SELECT CAND_ID FROM CONTEST,CONSTITUENCY WHERE CONTEST.CONST_ID=CONSTITUENCY.CONST_ID GROUP BY
+ CAND_ID HAVING COUNT(DISTINCT(CSSTATE))>1);
++---------+----------+------+-----------+-------+------+
+| CAND_ID | PHONE_NO | AGE  | STATE     | NAME  | PID  |
++---------+----------+------+-----------+-------+------+
+|    1002 | 43627183 |   33 | KERALA    | AVANI |  222 |
+|    1003 | 89790129 |   30 | KARNATAKA | HAVI  |  333 |
++---------+----------+------+-----------+-------+------+
+2 rows in set (0.00 sec)
+
+II)SELECT MAX(CSSTATE) FROM CONSTITUENCY;
++---------------+
+| MAX(CSSTATE)  |
++---------------+
+| MADHYAPRADESH |
++---------------+
+
+ source abc.sql;
+
+ call abc(1,'HAVISH',15,'PUTTUR');
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE VP21MC050_COUNTRY.abc; expected 5, got 4
+mysql> call abc(1,'HAVISH',15,'PUTTUR','KARNATAKA');
++--------------------+
+| msg                |
++--------------------+
+| voter not eligible |
++--------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call abc(8,'Rithvik',22,'UPPALA','KERALA');
++--------------+
+| msg          |
++--------------+
+| row inserted |
++--------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
