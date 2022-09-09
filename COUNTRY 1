@@ -174,6 +174,8 @@ II)SELECT MAX(CSSTATE) FROM CONSTITUENCY;
 | MADHYAPRADESH |
 +---------------+
 
+
+III)
  source abc.sql;
 
  call abc(1,'HAVISH',15,'PUTTUR');
@@ -197,4 +199,52 @@ mysql> call abc(8,'Rithvik',22,'UPPALA','KERALA');
 1 row in set (0.01 sec)
 
 Query OK, 0 rows affected (0.01 sec)
+
+IV)
+
+call new('KEYYUR');
++--------------+
+| NO_OF_VOTERS |
++--------------+
+|           20 |
++--------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+V)
+source voters.sql;
+Query OK, 0 rows affected (0.01 sec)
+
+insert into VOTERS values(17,"mani",20,60,"BAYAR","KERALA",7899,1001,4);
+    -> $$
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * FROM CONSTITUENCY;
+    -> $$
++----------+------------+---------------+--------------+
+| CONST_ID | CON_NAME   | CSSTATE       | NO_OF_VOTERS |
++----------+------------+---------------+--------------+
+|        1 | KEYYUR     | KARNATAKA     |           20 |
+|        2 | KUMBRA     | GOA           |           30 |
+|        3 | BELLARE    | MADHYAPRADESH |           10 |
+|        4 | THINGALADI | GOA           |           45 |
+|        5 | MADAVU     | KARNATAKA     |           45 |
+|        6 | SAVANOOR   | KARNATAKA     |           25 |
+|        7 | VITTAL     | GOA           |           20 |
++----------+------------+---------------+--------------+
+7 rows in set (0.00 sec)
+select * from CONSTITUENCY;
++----------+------------+---------------+--------------+
+| CONST_ID | CON_NAME   | CSSTATE       | NO_OF_VOTERS |
++----------+------------+---------------+--------------+
+|        1 | KEYYUR     | KARNATAKA     |           20 |
+|        2 | KUMBRA     | GOA           |           30 |
+|        3 | BELLARE    | MADHYAPRADESH |           10 |
+|        4 | THINGALADI | GOA           |           40 |
+|        5 | MADAVU     | KARNATAKA     |           45 |
+|        6 | SAVANOOR   | KARNATAKA     |           25 |
+|        7 | VITTAL     | GOA           |           20 |
++----------+------------+---------------+--------------+
 
