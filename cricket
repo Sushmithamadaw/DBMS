@@ -1,0 +1,21 @@
+ select * from TEAMS_ where TID IN (SELECT WINNINGTEAM_ID FROM MATCHES_T GROUP BY WINNINGTEAM_ID HAVING COUNT(WINNINGTEAM_ID)=(SELECT COUNT(*) FROM MATCHES_T GROUP BY WINNINGTEAM_ID ORDER BY COUNT(WINNINGTEAM_ID) DESC LIMIT 1));
+    -> $$
++-----+------------+--------+------------+---------+
+| TID | TNAME      | COACH  | CAPTAIN_ID | CITY    |
++-----+------------+--------+------------+---------+
+| 125 | ROYALS     | LAXMAN | 3          | CHENNAI |
+| 126 | DAREDEVILS | SINGH  | 4          | DELHI   |
++-----+------------+--------+------------+---------+
+2 rows in set (0.00 sec)
+
+OR
+
+select * from TEAMS_ where TID=(SELECT WINNINGTEAM_ID FROM MATCHES_T GROUP BY WINNINGTEAM_ID ORDER BY COUNT(WINNINGTEAM_ID) DESC LIMIT
+1);
+    -> $$
++-----+------------+-------+------------+-------+
+| TID | TNAME      | COACH | CAPTAIN_ID | CITY  |
++-----+------------+-------+------------+-------+
+| 126 | DAREDEVILS | SINGH | 4          | DELHI |
++-----+------------+-------+------------+-------+
+
